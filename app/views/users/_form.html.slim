@@ -1,0 +1,23 @@
+= form_for @user do |f|
+  div.field
+    = f.label :email, class: 'sm-col-6 center'
+    br
+    = f.text_field :email, class: 'sm-col-6 center'
+  div.field
+    = f.label :first_name, class: 'sm-col-6 center'
+    br
+    = f.text_field :first_name, class: 'sm-col-6 center'
+  div.field
+    = f.label :last_name, class: 'sm-col-6 center'
+    br
+    = f.text_field :last_name, class: 'sm-col-6 center'
+  div.field
+    = f.label :password, class: 'sm-col-6 center'
+    br
+    = f.password_field :password, class: 'sm-col-6 center'
+  div.field
+    = f.label :password_confirmation, class: 'sm-col-6 center'
+    br
+    = f.password_field :password_confirmation, class: 'sm-col-6 center'
+  div.actions
+    = f.submit "Create Account"

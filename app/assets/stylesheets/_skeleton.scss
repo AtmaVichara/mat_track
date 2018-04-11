@@ -1,0 +1,16 @@
+@import url("https://fonts.googleapis.com/css?family=Oswald:400,700");
+@import url("https://fonts.googleapis.com/css?family=Julius+Sans+One");
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+
+body {
+  min-height: 100%;
+  margin: 0px;
+  h1 {
+    font-family: 'Open Sans';
+  }
+  a, p, li, label {
+    font-family: 'Julius Sans One' !important;
+    text-decoration: none;
+
+  }
+}

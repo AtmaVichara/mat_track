@@ -1,0 +1,12 @@
+doctype html
+html
+  head
+    title MatTrack
+    = csrf_meta_tags
+    meta name="google-signin-client_id" content='333167696488-jm17ed8ofnagfrb8dbb2701vs59sna0t.apps.googleusercontent.com'
+
+    = stylesheet_link_tag    'application', media: 'all'
+  body
+    = render "shared/navbar"
+    = yield
+    = javascript_include_tag 'application'
