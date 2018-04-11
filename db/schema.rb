@@ -10,9 +10,39 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 0) do
+ActiveRecord::Schema.define(version: 20180411130937) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "lessons", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "schools", force: :cascade do |t|
+    t.string "street"
+    t.string "state"
+    t.string "zip"
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "users", force: :cascade do |t|
+    t.string "fist_name"
+    t.string "last_name"
+    t.string "token"
+    t.string "refresh_token"
+    t.string "expires_at"
+    t.string "email"
+    t.string "password_digest"
+    t.integer "role"
+    t.string "uid"
+    t.string "provider"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
 end
