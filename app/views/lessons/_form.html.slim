@@ -1,0 +1,11 @@
+= form_for @lesson do |f|
+  div.field
+    = f.label :name, class: 'sm-col-6 center'
+    br
+    = f.text_field :name, class: 'sm-col-6 center'
+  div.school_selection
+    = f.label :school_id, class: 'sm-col-6 center'
+    br
+    = f.collection_select :school_ids, School.all, :id, :name, class: 'sm-col-6 center'
+  div.actions
+    = f.submit "Create Lesson"
