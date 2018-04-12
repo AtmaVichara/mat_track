@@ -1,0 +1,38 @@
+div.sm-col-12.sm-col-right.flex.pb3
+  h1.pl4.ml4 Welcome #{@user.first_name} #{@user.last_name}
+div.flex.flex-column.sm-col-2.left.sidebar
+  div.flex-first.border
+    div.sm-col-4.block
+      ul.list-reset.mt2.mb2
+        li.btn.block.home
+          | Home
+        li.btn.block.schools
+          | Schools
+        li.btn.block.lessons
+          | Lessons
+        li.btn.block.settings
+          | Settings
+div.flex.sm-col-10.home_show
+  div.week_calendar.sm-col-12
+
+div.flex.sm-col-10.show_schools
+  div.sm-col-12.
+    = link_to "Add School", '', class: 'right pr3 mr4'
+  / - @user.schools.each do |school|
+  /   div.school_card.sm-col-3
+  /     ul
+  /       li
+  /         = link_to school.name, school_path(school)
+  /       li
+  /         | yis
+/ div.flex.sm-col-10.show_lessons
+/   - @user.lessons.each do |lesson|
+/     div.lesson.sm-col-3
+/       ul
+/         li
+/           = link_to lesson.name, school_lesson_path(lesson.schools.first, lesson)
+/         li
+/           | yis
+/ div.flex.sm-col-10.show_settings
+/   div.settings
+/     = form_tag @user do |f|

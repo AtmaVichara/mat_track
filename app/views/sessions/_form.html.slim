@@ -1,0 +1,12 @@
+= form_tag login_path do
+  div.field.mb3
+    = label_tag :email, "Email", class: 'sm-col-6 center'
+    br
+    = email_field_tag :email, "", class: 'sm-col-6 center mt1'
+    br
+  div.field.mb3
+    = label_tag :password, "Password", class: 'sm-col-6 center'
+    br
+    = password_field_tag :password, '', class: 'sm-col-6 center mt1'
+  div.actions
+    = submit_tag "Sign In"

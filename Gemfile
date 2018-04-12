@@ -21,6 +21,7 @@ gem 'sendgrid-ruby'
 gem 'jquery-rails'
 gem 'coffee-rails', '~> 4.2'
 gem 'jbuilder', '~> 2.5'
+gem 'bcrypt'
 
 
 group :development, :test do
