@@ -1,0 +1,10 @@
+div.navbar.sm-col.sm-col-12.mb2
+  div.sm-col.sm-col-3
+    div.logo
+      p.left Placeholder
+  div.sm-col.sm-col-9.sign_in_buttons.flex
+    div.sm-col.sm-col-8
+    div.sm-col.sm-col-2.mt2
+      = link_to 'Logout', logout_path, method: :delete, class: 'align-middle'
+    div.sm-col.sm-col-2.mt2
+      = link_to 'Dashboard', dashboard_path(current_user), class: 'align-middle'
