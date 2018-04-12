@@ -13,7 +13,7 @@ describe "as a visitor" do
         fill_in "password", with: "password"
         click_on "Sign In"
 
-        expect(current_path).to be("/dashboard")
+        expect(current_path).to be("/dashboard.1")
       end
     end
   end

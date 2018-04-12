@@ -7,6 +7,9 @@ html
 
     = stylesheet_link_tag    'application', media: 'all'
   body
-    = render "shared/navbar"
+    - if current_user
+      = render "shared/user_navbar"
+    - else
+      = render "shared/navbar"
     = yield
     = javascript_include_tag 'application'
