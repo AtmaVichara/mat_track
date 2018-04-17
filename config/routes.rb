@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   resources :lessons
   resources :events
   resources :schools
+  resources :students, only: [:index, :create, :show]
 
   get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'
