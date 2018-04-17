@@ -4,12 +4,14 @@ describe "as a user" do
   context "from the new lessons path" do
     describe "when I fill out the form and hit create" do
       it "creates new lesson" do
-        school = create(:school)
-        visit new_lesson_path
+        user = create(:user)
+        allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
+        user.schools << create(:school)
+        visit dashboard_path(user)
 
-        fill_in 'lesson[name]', with: 'Humbled by breaking down'
-        find(".school_selection").find(:xpath, '//*[@id="lesson_school_ids"]/option').select_option
-        click_on 'Create Lesson'
+        find('.lesson_name').set 'Humbled by breaking down'
+        find(".quick_lesson").find(:xpath, '//*[@id="school"]/option').select_option
+        find('.lesson_submit').click
 
         expect(page).to have_content('Humbled by breaking down')
       end
