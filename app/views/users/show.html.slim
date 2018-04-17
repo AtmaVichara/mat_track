@@ -1,7 +1,7 @@
-div.sm-col-12.sm-col-right.flex.pb3
-  h1.pl4.ml4 Welcome #{@user.first_name} #{@user.last_name}
+div.sm-col-12.sm-col-right.flex.pb3.greeting id="#{current_user.email}"
+  h1.pl4.ml4 Welcome #{current_user.first_name} #{current_user.last_name}
 div.flex.flex-column.sm-col-2.left.sidebar
-  div.flex-first.border
+  div.flex-first
     div.sm-col-4.block
       ul.list-reset.mt2.mb2
         li.btn.block.home
@@ -10,16 +10,57 @@ div.flex.flex-column.sm-col-2.left.sidebar
           | Schools
         li.btn.block.lessons
           | Lessons
-        li.btn.block.settings
-          | Settings
-div.flex.sm-col-10.home_show
-  div.week_calendar.sm-col-12
-div.flex.sm-col-10.show_schools
-  div.sm-col-12.
-    = link_to "Add School", '', class: 'right pr3 mr4'
-div.flex.sm-col-10.show_lessons
+
+
+div.flex.sm-col-10
+  div.calendars.sm-col-12.home_show
+    h4 Quick Event Add
+    div.sm-col-9.quick_event
+      = form_tag events_path, method: :post, class: 'event_form' do
+        = label_tag :name, 'Name', class: 'mx2'
+        = text_field_tag :name, '', class: 'event_name'
+        = label_tag :start, 'Start', class: 'mx2'
+        = text_field_tag :start
+        = label_tag :end, 'End', class: 'mx2'
+        = text_field_tag :end
+        = label_tag :lesson, 'Lesson', class: 'mx2'
+        = select_tag :lesson, options_for_select(@lessons.collect{ |l| [l.name, l.id] })
+        = submit_tag '', class: 'hidden submit'
+    div.sm-col-12.events.mt3
+      ul.mt2.mb2
+        - @events.each do |event|
+          li class=['btn', 'event', 'mt4', 'sm-col-2', "event_#{event.id}"]
+            = link_to event.name, event_path(event), remote: true
+        div.sm-col-9.event_show
+
+
+div.sm-col-10.show_schools.hidden
+  h4 Add School
+  div.sm-col-12.block
+    div.sm-col-9.quick_school
+      = form_tag schools_path, method: :post, class: 'school_form' do
+        = label_tag :name, 'Name', class: 'mx2'
+        = text_field_tag :name, '', class: 'school_name'
+        = submit_tag '', class: 'hidden'
+    div.sm-col-12
+      ul.block
+        - @schools.each do |school|
+          div.sm-col-3.school
+            li class=['btn', 'event', 'mt1', 'sm-col-2', "school_#{school.id}"]
+              = link_to school.name, school_path(school)
+
+div.sm-col-10.show_lessons.hidden
+  h4 Add Lessons
+  div.sm-col-12.block
+    div.sm-col-9.quick_lesson
+      = form_tag lessons_path, method: :post, class: 'lesson_form' do
+        = label_tag :name, "Name", class: 'mx2'
+        = text_field_tag :name, '', class: 'lesson_name'
+        = label_tag :school, 'School', class: 'mx2'
+        = select_tag :school, options_for_select(current_user.schools.collect{ |s| [s.name, s.id] })
+        = submit_tag '', class: 'hidden lesson_submit'
   div.sm-col-12
-    = link_to "Add New Lesson", new_lesson_path, class: 'right pr3 mr4'
-/ div.flex.sm-col-10.show_settings
-/   div.settings
-/     = form_tag @user do |f|
+    ul.block
+      - @lessons.each do |lesson|
+        li class=['btn', 'event', 'mt1', 'sm-col-2', "lesson_#{lesson.id}"]
+          = link_to lesson.name, lesson_path(lesson)

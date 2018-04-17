@@ -2,7 +2,6 @@ class LessonsController < ApplicationController
   before_action :set_lesson, only: [:show]
 
   def show
-
   end
 
   def new
@@ -10,11 +9,12 @@ class LessonsController < ApplicationController
   end
 
   def create
-    school = School.find(lesson_params[:school_ids])
-    lesson = school.lessons.new({name: lesson_params[:name]})
+    school = School.find(lesson_params[:school])
+    lesson = Lesson.new({name: lesson_params[:name]})
     if lesson.save
+      school.lessons << lesson
       flash[:success] = "Lesson Added"
-      redirect_to lesson_path(lesson)
+      redirect_to dashboard_path(current_user)
     else
       render :new
     end
@@ -23,7 +23,7 @@ class LessonsController < ApplicationController
   private
 
     def lesson_params
-      params.require(:lesson).permit(:school_ids, :name)
+      params.permit(:school, :name)
     end
 
     def set_lesson
