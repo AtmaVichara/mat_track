@@ -4,10 +4,6 @@ class LessonsController < ApplicationController
   def show
   end
 
-  def new
-    @lesson = Lesson.new
-  end
-
   def create
     school = School.find(lesson_params[:school])
     lesson = Lesson.new({name: lesson_params[:name]})

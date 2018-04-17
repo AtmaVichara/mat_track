@@ -10,11 +10,6 @@ class EventsController < ApplicationController
     end
   end
 
-  def new
-    @lesson = Lesson.find(params[:lesson_id])
-    @event = Event.new
-  end
-
   def create
     lesson = Lesson.find(params[:lesson])
     event = lesson.events.new(event_params)
@@ -24,7 +19,8 @@ class EventsController < ApplicationController
       flash[:success] = "Successfully made event"
       redirect_to dashboard_path(current_user)
     else
-      render :new
+      flash[:error] = "An error occured during the creation of the lesson, please try again."
+      redirect_to dashboard_path(current_user)
     end
   end
 

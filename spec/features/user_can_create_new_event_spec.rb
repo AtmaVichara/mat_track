@@ -5,7 +5,8 @@ describe "as a user" do
     describe "when I fill out the form and hit create" do
       it "creates new event" do
         user = create(:user)
-        create(:lesson)
+        user.schools << create(:school)
+        user.schools.first.lessons << create(:lesson)
         allow_any_instance_of(ApplicationController).to receive(:current_user).and_return(user)
         visit dashboard_path(user)
 
