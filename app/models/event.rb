@@ -2,6 +2,7 @@ class Event < ApplicationRecord
   belongs_to :lesson
   has_many :attendances
   has_many :users, through: :attendances
+  has_many :students, through: :attendances
 
   def format_body
     {
