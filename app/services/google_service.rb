@@ -4,17 +4,19 @@ class GoogleService
     @user = user
   end
 
-  def calendar_list
-    get_url('calendar/v3/users/me/calendarList')
+  def make_event(event)
+    post_url("calendar/v3/calendars/#{@user.email}/events/quickAdd", event.format_body)
   end
 
   private
 
   attr_reader :user
 
-    def get_url(url)
-      response = conn.get(url)
-      JSON.parse(response.body, symbolize_names: true)
+    def post_url(url, params)
+      conn.post do |req|
+        req.url url
+        req.params = params
+      end
     end
 
     def headers
@@ -24,6 +26,6 @@ class GoogleService
     end
 
     def conn
-      Faradar.new("https://www.googleapis.com/", headers: headers)
+      Faraday.new("https://www.googleapis.com/", headers: headers)
     end
 end

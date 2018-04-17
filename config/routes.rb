@@ -4,6 +4,9 @@ Rails.application.routes.draw do
   get "/dashbord", to: 'users#show', as: 'dashboard'
 
   resources :users, only: [:new, :create]
+  resources :lessons
+  resources :events
+  resources :schools
 
   get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'

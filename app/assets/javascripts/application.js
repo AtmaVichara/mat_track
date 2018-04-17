@@ -10,44 +10,55 @@
 // Read Sprockets README (https://github.com/rails/sprockets#sprockets-directives) for details
 // about supported directives.
 //
+//= require jquery
 //= require rails-ujs
 //= require_tree .
 
-const home = document.querySelector('li.home')
-const homeShow = document.querySelector('.home_show')
-const schools = document.querySelector('li.schools')
-const schoolShow = document.querySelector('.show_schools')
-const lessons = document.querySelector('li.lessons')
-const lessonsShow = document.querySelector('.show_lessons')
-const settings = document.querySelector('li.settings')
-const settingsShow = document.querySelector('.show_settings')
+const home = document.querySelector('li.home');
+const homeShow = document.querySelector('.home_show');
+const schools = document.querySelector('li.schools');
+const schoolShow = document.querySelector('.show_schools');
+const lessons = document.querySelector('li.lessons');
+const lessonsShow = document.querySelector('.show_lessons');
 
-
-const hidden = (data) => {
-  data.classList.add('hidden')
+const hidden = (dashboardView) => {
+  dashboardView.classList.add('hidden')
 }
 
 home.addEventListener('click', () => {
   homeShow.classList.toggle('hidden')
   hidden(lessonsShow)
-  hidden(settingsShow)
   hidden(schoolShow)
-})
-schools.addEventListener('click', () => {
-  schoolShow.classList.toggle('hidden')
-  hidden(lessonsShow)
-  hidden(settingsShow)
-  hidden(homeShow)
-})
+});
 lessons.addEventListener('click', () => {
   lessonsShow.classList.toggle('hidden')
   hidden(homeShow)
-  hidden(settingsShow)
   hidden(schoolShow)
-})
-settings.addEventListener('click', () => {
-  settingsShow.classList.toggle('hidden')
+});
+schools.addEventListener('click', () => {
+  schoolShow.classList.toggle('hidden')
   hidden(lessonsShow)
   hidden(homeShow)
-  hidden(schoolShow)
-})
+});
+
+document.onkeydown=function(){
+    if(window.event.keyCode=='13'){
+      document.querySelector('.event_form').submit();
+      document.querySelector('.school_form').submit();
+      document.querySelector('.lesson_form').submit();
+    }
+};
+
+const baseUrl = `https://www.googleapis.com/`;
+
+const fetchEvents = (apiKey, userEmail) => {
+  fetch(`https://www.googleapis.com/calendar/v3/calendars/${userEmail}/events/`,{
+    method: 'get',
+    headers: new Headers({
+      'Authorization': `Bearer ${apiKey}`
+    })
+  })
+    .then((response) => response.json())
+    .then((events) => console.log(events))
+    .catch((error) => console.log({ error }));
+}

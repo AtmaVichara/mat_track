@@ -5,7 +5,7 @@ html
     = csrf_meta_tags
     meta name="google-signin-client_id" content='333167696488-jm17ed8ofnagfrb8dbb2701vs59sna0t.apps.googleusercontent.com'
 
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag 'application', media: 'all'
   body
     - if current_user
       = render "shared/user_navbar"

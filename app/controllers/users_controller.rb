@@ -1,7 +1,9 @@
 class UsersController < ApplicationController
 
   def show
-    @user = current_user
+    @lessons = Lesson.users_lessons(current_user.id)
+    @events = current_user.events
+    @schools = current_user.schools
   end
 
   def new

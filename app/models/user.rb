@@ -6,7 +6,6 @@ class User < ApplicationRecord
   has_secure_password
 
   def self.update_or_create(auth)
-    binding.pry
     user = User.find_by(email: auth[:info][:email]) || User.new
     if user.password == nil
       user.attributes = {
