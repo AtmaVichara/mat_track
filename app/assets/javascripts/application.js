@@ -20,6 +20,8 @@ const schools = document.querySelector('li.schools');
 const schoolShow = document.querySelector('.show_schools');
 const lessons = document.querySelector('li.lessons');
 const lessonsShow = document.querySelector('.show_lessons');
+const students = document.querySelector('li.students');
+const studentsShow = document.querySelector('.show_students')
 
 const hidden = (dashboardView) => {
   dashboardView.classList.add('hidden')
@@ -29,16 +31,25 @@ home.addEventListener('click', () => {
   homeShow.classList.toggle('hidden')
   hidden(lessonsShow)
   hidden(schoolShow)
+  hidden(studentsShow)
 });
 lessons.addEventListener('click', () => {
   lessonsShow.classList.toggle('hidden')
   hidden(homeShow)
   hidden(schoolShow)
+  hidden(studentsShow)
 });
 schools.addEventListener('click', () => {
   schoolShow.classList.toggle('hidden')
   hidden(lessonsShow)
   hidden(homeShow)
+  hidden(studentsShow)
+});
+students.addEventListener('click', () => {
+  studentsShow.classList.toggle('hidden')
+  hidden(lessonsShow)
+  hidden(homeShow)
+  hidden(schoolShow)
 });
 
 document.onkeydown=function(){
@@ -46,6 +57,7 @@ document.onkeydown=function(){
       document.querySelector('.event_form').submit();
       document.querySelector('.school_form').submit();
       document.querySelector('.lesson_form').submit();
+      document.querySelector('.student_form').submit();
     }
 };
 
