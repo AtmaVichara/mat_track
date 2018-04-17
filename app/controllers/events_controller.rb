@@ -1,10 +1,10 @@
 class EventsController < ApplicationController
+  before_action :set_event, only: [:show]
 
   def index
   end
 
   def show
-    @event = Event.find(params[:id])
     respond_to do |format|
       format.js {render layout: false}
     end
@@ -28,6 +28,10 @@ class EventsController < ApplicationController
 
     def event_params
       params.permit(:name, :start, :end, :description)
+    end
+
+    def set_event
+      @event = Event.find(params[:id])
     end
 
 end
