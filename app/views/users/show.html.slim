@@ -44,11 +44,12 @@ div.sm-col-10.show_schools.hidden
         = text_field_tag :name, '', class: 'school_name'
         = submit_tag '', class: 'hidden'
     div.sm-col-12
-      ul.block
+      ul.block.my2
         - @schools.each do |school|
-          div.sm-col-3.school
-            li class=['btn', 'event', 'mt1', 'sm-col-2', "school_#{school.id}"]
-              = link_to school.name, school_path(school)
+          div.sm-col-4.school
+            li class=['btn', 'event', 'mt4', 'sm-col-2', "school_#{school.id}"]
+              = link_to school.name, school_path(school), remote: true
+        div.school_show
 
 div.sm-col-10.show_lessons.hidden
   h4 Add Lessons
@@ -64,7 +65,8 @@ div.sm-col-10.show_lessons.hidden
     ul.block
       - @lessons.each do |lesson|
         li class=['btn', 'event', 'mt1', 'sm-col-2', "lesson_#{lesson.id}"]
-          = link_to lesson.name, lesson_path(lesson)
+          = link_to lesson.name, lesson_path(lesson), remote: true
+      div.sm-col-9.lesson_show
 
 div.sm-col-10.show_students.hidden
   h4 New Student
