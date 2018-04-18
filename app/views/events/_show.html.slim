@@ -9,4 +9,4 @@ div.sm-col-12
     = label_tag :first_name
     = select_tag "students", options_for_select(current_user.students.collect{ |s| [s.first_name, s.id]} )
 div.sm-col-12.flex.flex-column
-  ul.attendees.flex-first.list-reset
+  div.attendees.flex-first.list-reset
