@@ -35,7 +35,6 @@ div.flex.sm-col-10
             = link_to event.name, event_path(event), remote: true
         div.sm-col-9.event_show
 
-
 div.sm-col-10.show_schools.hidden
   h4 Add School
   div.sm-col-12.block
@@ -84,4 +83,4 @@ div.sm-col-10.show_students.hidden
         - current_user.students.each do |student|
           li class=['btn', 'event', 'mt1', 'sm-col-2', "student#{student.id}"]
             = link_to "#{student.first_name} #{student.last_name}", student_path(student), remote: true
-      div.sm-col-9.student_show
+      div.sm-col-10.student_show.right

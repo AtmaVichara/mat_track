@@ -1,5 +1,7 @@
 h2.event = @event.name
 div.event_info.flex.flex-column
+  div.sm-col-12.right
+    = link_to "Delete Event", event_path(@event), method: :delete
   ul.flex-first.list-reset.my2
     li = @event.start_time + " to " + @event.end_time
 

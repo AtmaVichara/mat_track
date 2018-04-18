@@ -1,5 +1,5 @@
 class EventsController < ApplicationController
-  before_action :set_event, only: [:show]
+  before_action :set_event, only: [:show, :destroy]
 
   def index
   end
@@ -28,6 +28,13 @@ class EventsController < ApplicationController
     respond_to :js, :json, :html
     event = Event.find(params[:id])
     event.students << Student.find(params[:student_id])
+  end
+
+  def destroy
+    if @event.destroy
+      flash[:success] = "You have deleted an event"
+      redirect_to dashboard_path(current_user)
+    end
   end
 
   private
