@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require rails-ujs
-//= require_tree .
 
 const home = document.querySelector('li.home');
 const homeShow = document.querySelector('.home_show');
@@ -61,16 +60,59 @@ document.onkeydown=function(){
     }
 };
 
-const baseUrl = `https://www.googleapis.com/`;
+$(document).on("change", ".add_attendee_form", () => {
+  $.ajax({
+    url: "/events/add_attendee/",
+    type: "POST",
+    data: {
+      "student_id" : $('select[name=students]').val(),
+      "id" : $('.add_attendee_form').attr('id')
+    },
+    dataType: "json",
+    success: function(data) {
+      alert('successfully');
+    }
+  });
+});
 
-const fetchEvents = (apiKey, userEmail) => {
-  fetch(`https://www.googleapis.com/calendar/v3/calendars/${userEmail}/events/`,{
-    method: 'get',
-    headers: new Headers({
-      'Authorization': `Bearer ${apiKey}`
+
+// $('').on('click', '.event', () => {
+//   const eventId = $(this).attr('id');
+//   const fetchAttendees = (eventId) => {
+//     fetch(`/api/v1/events/${eventId}/attendees`)
+//     .then((response) => response.json())
+//     .then((attendees) => {
+//       attendees.forEach((attendee) => {
+//         appendAttendee(attendee)
+//       })
+//     .catch((error) => console.log({ error }));
+//     });
+//   }
+//   const appendAttendee = (attendee) => {
+//     $('.attendees').prepend(`
+//       <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
+//       `);
+//     }
+//   fetchAttendees(eventId);
+// })
+
+const fetchAttendees = (eventId) => {
+  fetch(`/api/v1/events/${eventId}/attendees`)
+  .then((response) => response.json())
+  .then((response) => console.log(response))
+  .then((attendees) => {
+    attendees.forEach((attendee) => {
+      appendAttendee(attendee)
     })
-  })
-    .then((response) => response.json())
-    .then((events) => console.log(events))
-    .catch((error) => console.log({ error }));
+  .catch((error) => console.log({ error }));
+  });
 }
+const appendAttendee = (attendee) => {
+  $('.attendees').prepend(`
+    <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
+  `);
+}
+$(document).ready(() => {
+  const eventId = $('.add_attendee_form').attr('id');
+  fetchAttendees(eventId);
+})
