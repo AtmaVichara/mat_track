@@ -12,7 +12,6 @@
 //
 //= require jquery
 //= require rails-ujs
-//= require_tree .
 
 const home = document.querySelector('li.home');
 const homeShow = document.querySelector('.home_show');
@@ -20,6 +19,8 @@ const schools = document.querySelector('li.schools');
 const schoolShow = document.querySelector('.show_schools');
 const lessons = document.querySelector('li.lessons');
 const lessonsShow = document.querySelector('.show_lessons');
+const students = document.querySelector('li.students');
+const studentsShow = document.querySelector('.show_students')
 
 const hidden = (dashboardView) => {
   dashboardView.classList.add('hidden')
@@ -29,16 +30,25 @@ home.addEventListener('click', () => {
   homeShow.classList.toggle('hidden')
   hidden(lessonsShow)
   hidden(schoolShow)
+  hidden(studentsShow)
 });
 lessons.addEventListener('click', () => {
   lessonsShow.classList.toggle('hidden')
   hidden(homeShow)
   hidden(schoolShow)
+  hidden(studentsShow)
 });
 schools.addEventListener('click', () => {
   schoolShow.classList.toggle('hidden')
   hidden(lessonsShow)
   hidden(homeShow)
+  hidden(studentsShow)
+});
+students.addEventListener('click', () => {
+  studentsShow.classList.toggle('hidden')
+  hidden(lessonsShow)
+  hidden(homeShow)
+  hidden(schoolShow)
 });
 
 document.onkeydown=function(){
@@ -46,19 +56,63 @@ document.onkeydown=function(){
       document.querySelector('.event_form').submit();
       document.querySelector('.school_form').submit();
       document.querySelector('.lesson_form').submit();
+      document.querySelector('.student_form').submit();
     }
 };
 
-const baseUrl = `https://www.googleapis.com/`;
+$(document).on("change", ".add_attendee_form", () => {
+  $.ajax({
+    url: "/events/add_attendee/",
+    type: "POST",
+    data: {
+      "student_id" : $('select[name=students]').val(),
+      "id" : $('.add_attendee_form').attr('id')
+    },
+    dataType: "json",
+    success: function(data) {
+      alert('successfully');
+    }
+  });
+});
 
-const fetchEvents = (apiKey, userEmail) => {
-  fetch(`https://www.googleapis.com/calendar/v3/calendars/${userEmail}/events/`,{
-    method: 'get',
-    headers: new Headers({
-      'Authorization': `Bearer ${apiKey}`
+
+// $('').on('click', '.event', () => {
+//   const eventId = $(this).attr('id');
+//   const fetchAttendees = (eventId) => {
+//     fetch(`/api/v1/events/${eventId}/attendees`)
+//     .then((response) => response.json())
+//     .then((attendees) => {
+//       attendees.forEach((attendee) => {
+//         appendAttendee(attendee)
+//       })
+//     .catch((error) => console.log({ error }));
+//     });
+//   }
+//   const appendAttendee = (attendee) => {
+//     $('.attendees').prepend(`
+//       <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
+//       `);
+//     }
+//   fetchAttendees(eventId);
+// })
+
+const fetchAttendees = (eventId) => {
+  fetch(`/api/v1/events/${eventId}/attendees`)
+  .then((response) => response.json())
+  .then((response) => console.log(response))
+  .then((attendees) => {
+    attendees.forEach((attendee) => {
+      appendAttendee(attendee)
     })
-  })
-    .then((response) => response.json())
-    .then((events) => console.log(events))
-    .catch((error) => console.log({ error }));
+  .catch((error) => console.log({ error }));
+  });
 }
+const appendAttendee = (attendee) => {
+  $('.attendees').prepend(`
+    <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
+  `);
+}
+$(document).ready(() => {
+  const eventId = $('.add_attendee_form').attr('id');
+  fetchAttendees(eventId);
+})

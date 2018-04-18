@@ -5,5 +5,6 @@ RSpec.describe Event, type: :model do
     it {should belong_to(:lesson)}
     it {should have_many(:attendances)}
     it {should have_many(:users).through(:attendances)}
+    it {should have_many(:students).through(:attendances)}
   end
 end

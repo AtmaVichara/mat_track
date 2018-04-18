@@ -3,6 +3,8 @@ class User < ApplicationRecord
   has_many :schools, through: :user_schools
   has_many :attendances
   has_many :events, through: :attendances
+  has_many :user_students
+  has_many :students, through: :user_students
   has_secure_password
 
   def self.update_or_create(auth)

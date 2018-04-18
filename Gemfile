@@ -25,6 +25,7 @@ gem 'jbuilder', '~> 2.5'
 gem 'bcrypt'
 gem 'chronic'
 gem 'google-api-client', '~> 0.11'
+gem 'active_model_serializers', '~> 0.10.0'
 
 
 group :development, :test do
