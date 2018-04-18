@@ -15,7 +15,7 @@ div.flex.flex-column.sm-col-2.left.sidebar
 
 
 div.flex.sm-col-10
-  div.calendars.sm-col-12.home_show
+  div.sm-col-12.home_show
     h4 Quick Event Add
     div.sm-col-9.quick_event
       = form_tag events_path, method: :post, class: 'event_form' do
@@ -34,7 +34,6 @@ div.flex.sm-col-10
           li class=['btn', 'event', 'mt4', 'sm-col-2', "event_#{event.id}"]
             = link_to event.name, event_path(event), remote: true
         div.sm-col-9.event_show
-
 
 div.sm-col-10.show_schools.hidden
   h4 Add School
@@ -84,4 +83,4 @@ div.sm-col-10.show_students.hidden
         - current_user.students.each do |student|
           li class=['btn', 'event', 'mt1', 'sm-col-2', "student#{student.id}"]
             = link_to "#{student.first_name} #{student.last_name}", student_path(student), remote: true
-      div.sm-col-9.student_show
+      div.sm-col-10.student_show.right

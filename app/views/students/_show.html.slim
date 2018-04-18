@@ -1,1 +1,8 @@
 h4 = @student.first_name + ' ' + @student.last_name + ' Profile'
+
+= form_tag student_grades_path(@student), method: :post, class: 'grade_form', id: @student.id do
+  = label_tag :grade, "Student Grade", class: 'mx2'
+  = text_field_tag :grade, '', class: 'grade'
+  = label_tag :notes, "Student Notes", class: 'mx2'
+  = text_field_tag :notes, '', class: 'notes'
+  = submit_tag '', class: 'hidden grade_submit'

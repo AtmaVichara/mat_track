@@ -73,46 +73,38 @@ $(document).on("change", ".add_attendee_form", () => {
       alert('successfully');
     }
   });
+  const fetchAttendees = () => {
+    const eventId = $('.add_attendee_form').attr('id');
+    fetch(`/api/v1/events/${eventId}/attendees`)
+    .then((response) => response.json())
+    .then((attendees) => {
+      attendees.forEach((attendee) => {
+        appendAttendee(attendee);
+      })
+    .catch((error) => console.log(error));
+    });
+  }
+  const appendAttendee = (attendee) => {
+    $('.attendees').html(`
+      <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
+    `);
+  }
+  fetchAttendees();
 });
 
-
-// $('').on('click', '.event', () => {
-//   const eventId = $(this).attr('id');
-//   const fetchAttendees = (eventId) => {
-//     fetch(`/api/v1/events/${eventId}/attendees`)
-//     .then((response) => response.json())
-//     .then((attendees) => {
-//       attendees.forEach((attendee) => {
-//         appendAttendee(attendee)
-//       })
-//     .catch((error) => console.log({ error }));
-//     });
-//   }
-//   const appendAttendee = (attendee) => {
+// const fetchAttendees = () => {
+//   const eventId = $('.add_attendee_form').attr('id');
+//   fetch(`/api/v1/events/${eventId}/attendees`)
+//   .then((response) => response.json())
+//   .then((response) => console.log(response))
+//   .then((attendees) => appendAttendees(attendees))
+//   .catch((error) => console.log( error ));
+// }
+// const appendAttendees = (attendees) => {
+//   $('attendees').empty();
+//   attendees.forEach((attendee) => {
 //     $('.attendees').prepend(`
 //       <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
-//       `);
-//     }
-//   fetchAttendees(eventId);
-// })
-
-const fetchAttendees = (eventId) => {
-  fetch(`/api/v1/events/${eventId}/attendees`)
-  .then((response) => response.json())
-  .then((response) => console.log(response))
-  .then((attendees) => {
-    attendees.forEach((attendee) => {
-      appendAttendee(attendee)
-    })
-  .catch((error) => console.log({ error }));
-  });
-}
-const appendAttendee = (attendee) => {
-  $('.attendees').prepend(`
-    <li class='name my2'>${attendee.first_name} ${attendee.last_name}</li>
-  `);
-}
-$(document).ready(() => {
-  const eventId = $('.add_attendee_form').attr('id');
-  fetchAttendees(eventId);
-})
+//     `);
+//   })
+// }

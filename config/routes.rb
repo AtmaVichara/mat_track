@@ -19,7 +19,9 @@ Rails.application.routes.draw do
     end
   end
   resources :schools
-  resources :students, only: [:index, :create, :show]
+  resources :students, only: [:index, :create, :show] do
+    resources :grades, only: [:index, :create, :show]
+  end
 
   get '/login', to: 'sessions#new', as: 'login'
   post '/login', to: 'sessions#create'
