@@ -10,6 +10,8 @@ div.flex.flex-column.sm-col-2.left.sidebar
           | Schools
         li.btn.block.lessons
           | Lessons
+        li.btn.block.students
+          | Students
 
 
 div.flex.sm-col-10
@@ -64,3 +66,22 @@ div.sm-col-10.show_lessons.hidden
       - @lessons.each do |lesson|
         li class=['btn', 'event', 'mt1', 'sm-col-2', "lesson_#{lesson.id}"]
           = link_to lesson.name, lesson_path(lesson)
+
+div.sm-col-10.show_students.hidden
+  h4 New Student
+  div.sm-col-12.block
+    div.sm-col-12.quick_student
+      = form_tag students_path, method: :post, class: 'student_form' do
+        = label_tag :first_name, "First Name", class: 'mx2'
+        = text_field_tag :first_name, "", class: 'mx2'
+        = label_tag :last_name, "Last Name", class: 'mx2'
+        = text_field_tag :last_name, "", class: 'mx2'
+        = label_tag :email, "Email (optional)", class: 'mx2'
+        = text_field_tag :email, "", class: 'mx2'
+        = submit_tag '', class: 'hidden student_submit'
+    div.sm-col-12.mt3
+      ul.block.my2
+        - current_user.students.each do |student|
+          li class=['btn', 'event', 'mt1', 'sm-col-2', "student#{student.id}"]
+            = link_to "#{student.first_name} #{student.last_name}", student_path(student), remote: true
+      div.sm-col-9.student_show

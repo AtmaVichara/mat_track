@@ -1,6 +1,12 @@
-h2 = @event.name
+h2.event = @event.name
 div.event_info.flex.flex-column
   ul.flex-first.list-reset.my2
     li = @event.start_time + " to " + @event.end_time
 
 h3 Attendees
+div.sm-col-12
+  = form_tag add_attendee_events_path, method: 'post', class: "add_attendee_form", id: "#{@event.id}" do
+    = label_tag :first_name
+    = select_tag "students", options_for_select(current_user.students.collect{ |s| [s.first_name, s.id]} )
+div.sm-col-12.flex.flex-column
+  ul.attendees.flex-first.list-reset

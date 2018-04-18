@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20180412185406) do
+ActiveRecord::Schema.define(version: 20180417183819) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,7 +21,9 @@ ActiveRecord::Schema.define(version: 20180412185406) do
     t.bigint "event_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id"
     t.index ["event_id"], name: "index_attendances_on_event_id"
+    t.index ["student_id"], name: "index_attendances_on_student_id"
     t.index ["user_id"], name: "index_attendances_on_user_id"
   end
 
@@ -65,13 +67,32 @@ ActiveRecord::Schema.define(version: 20180412185406) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "students", force: :cascade do |t|
+    t.string "first_name"
+    t.string "last_name"
+    t.string "email"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "user_schools", force: :cascade do |t|
     t.bigint "user_id"
     t.bigint "school_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "student_id"
     t.index ["school_id"], name: "index_user_schools_on_school_id"
+    t.index ["student_id"], name: "index_user_schools_on_student_id"
     t.index ["user_id"], name: "index_user_schools_on_user_id"
+  end
+
+  create_table "user_students", force: :cascade do |t|
+    t.bigint "student_id"
+    t.bigint "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_user_students_on_student_id"
+    t.index ["user_id"], name: "index_user_students_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
@@ -90,10 +111,14 @@ ActiveRecord::Schema.define(version: 20180412185406) do
   end
 
   add_foreign_key "attendances", "events"
+  add_foreign_key "attendances", "students"
   add_foreign_key "attendances", "users"
   add_foreign_key "events", "lessons"
   add_foreign_key "school_lessons", "lessons"
   add_foreign_key "school_lessons", "schools"
   add_foreign_key "user_schools", "schools"
+  add_foreign_key "user_schools", "students"
   add_foreign_key "user_schools", "users"
+  add_foreign_key "user_students", "students"
+  add_foreign_key "user_students", "users"
 end
