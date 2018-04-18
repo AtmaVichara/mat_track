@@ -24,6 +24,12 @@ class EventsController < ApplicationController
     end
   end
 
+  def add_attendee
+    respond_to :js, :json, :html
+    event = Event.find(params[:id])
+    event.students << Student.find(params[:student_id])
+  end
+
   private
 
     def event_params
